@@ -9,6 +9,13 @@ body {
   background: #f2f4f8;
   transition: background 1s ease;
 }
+/* SAFETY: hide everything except login on load */
+#valentine,
+#popup,
+#invite,
+#evilVideo {
+  display: none;
+}
 
 /* HIDDEN */
 .hidden {

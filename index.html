@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,29 +8,30 @@
 </head>
 <body>
 
-<!-- LOADER -->
+<!-- Only the LOGIN shows first -->
+<div class="card" id="loginCard">
+  <!-- Replaced with a text logo to avoid 404 error -->
+  <div class="logo">BULSU</div>
+  <h2>Capstone System Login</h2>
+  
+  <input id="username" placeholder="Student ID" value="jervinefajardo">
+  <input id="password" type="password" placeholder="Password" value="test242529">
+  
+  <label class="remember">
+    <input type="checkbox" checked> Remember me
+  </label>
+  
+  <button id="loginBtn">Sign In</button>
+  <p id="error"></p>
+</div>
+
+<!-- LOADER (hidden initially) -->
 <div id="loader" class="hidden">
   <div class="spinner"></div>
   <p>Authenticating…</p>
 </div>
 
-<!-- LOGIN -->
-<div class="card" id="loginCard">
-  <img src="assets/bulsu-logo.jpg" class="logo">
-  <h2>Capstone System Login</h2>
-
-  <input id="username" placeholder="Student ID">
-  <input id="password" type="password" placeholder="Password">
-
-  <label class="remember">
-    <input type="checkbox"> Remember me
-  </label>
-
-  <button id="loginBtn">Sign In</button>
-  <p id="error"></p>
-</div>
-
-<!-- VALENTINE -->
+<!-- VALENTINE (hidden initially) -->
 <div id="valentine" class="hidden">
   <h1>Will you go out with me? 💖</h1>
   <div class="buttons">
@@ -40,31 +40,30 @@
   </div>
 </div>
 
-<!-- POPUP -->
-<div id="popup" class="hidden">
-  <div class="popup-box">
-    <video id="popupVideo" autoplay muted loop></video>
-    <img id="popupImg">
-    <p id="popupText"></p>
-    <button onclick="closePopup()">Close</button>
-  </div>
-</div>
-
-<!-- EVIL VIDEO -->
-<video id="evilVideo" class="evil"></video>
-
-<!-- INVITE -->
+<!-- INVITE (hidden initially) -->
 <div id="invite" class="hidden">
   <div class="invite-box">
     <h1>💌 Date Invitation 💌</h1>
-    <p><strong>Date:</strong> February 14</p>
+    <p><strong>Date:</strong> February 7</p>
     <p><strong>Time:</strong> 6:00 PM</p>
-    <p><strong>Attire:</strong> Dress comfortably</p>
-    <p><strong>Place:</strong> Jiangnan Hotpot (tentative)</p>
-    <p>See you 💖</p>
+    <p><strong>Attire:</strong> Dress Comfortably</p>
+    <p><strong>Place:</strong> Jiangnan Hotpot & Grill</p>
+    <p>See you, love. I love you💖</p>
+    <button onclick="location.reload()">Back to Login</button>
   </div>
 </div>
 
+<!-- POPUP (hidden initially) -->
+<div id="popup" class="hidden">
+  <div class="popup-box">
+    <div class="popup-content">
+      <p id="popupText"></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confetti container -->
 <div id="confetti"></div>
 
 <script src="script.js"></script>

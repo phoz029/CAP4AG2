@@ -1,169 +1,153 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ffe6f0, #fff);
   height: 100vh;
-  background: #f4f6f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 }
 
 /* LOGIN */
 .card {
+  width: 320px;
+  margin: auto;
+  margin-top: 80px;
   background: white;
-  padding: 40px;
+  padding: 20px;
   border-radius: 12px;
-  width: 90%;
-  max-width: 380px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-.card h2 { margin-bottom: 5px; }
-.card p { color: #666; font-size: 14px; }
-
-label { font-size: 13px; }
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0 18px;
-}
-
-button {
-  padding: 12px;
-  width: 100%;
-  cursor: pointer;
-}
-
-#error { color: #d9534f; }
-
-/* VALENTINE */
-#valentine {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.val-card {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
   text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,.2);
 }
 
-#yesBtn {
-  background: #ff4d6d;
-  color: white;
-  border-radius: 25px;
-}
-
-#noBtn {
-  position: absolute;
-  background: #ddd;
-  border-radius: 25px;
-}
-
-/* POPUPS */
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.popup-content {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-}
-
-.popup-content img {
-  max-width: 200px;
-  margin-bottom: 15px;
-}
-h1 {
-  margin-bottom: 5px;
-  font-size: 24px;
-}
-
-h3 {
-  margin-top: 0;
-  font-weight: 400;
-  color: #555;
-}
-
-.subtitle {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.footer {
-  margin-top: 25px;
-  font-size: 11px;
-  color: #888;
-  text-align: center;
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
-}
 .logo {
-  display: block;
-  margin: 0 auto 15px;
   width: 90px;
 }
 
-.remember-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
+input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
 }
 
-.remember-label {
-  margin-left: 8px;
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #ff4d88;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff1a66;
+}
+
+.remember {
   font-size: 13px;
-  color: #555;
 }
 
+#error {
+  color: red;
+}
+
+/* LOADER */
 #loader {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#loader img {
-  width: 60px;
-  animation: spin 1s infinite linear;
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid pink;
+  border-top: 4px solid hotpink;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-.popup-content video {
-  max-width: 220px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+
+/* VALENTINE */
+#valentine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }
 
-#evilVideo {
-  position: fixed;
-  width: 160px;
-  bottom: 20px;
-  right: 20px;
-  display: none;
-  z-index: 5;
-  border-radius: 12px;
+.buttons {
+  display: flex;
+  gap: 20px;
 }
+
+#noBtn {
+  position: absolute;
+}
+
+/* POPUP */
+#popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.popup-box video,
+.popup-box img {
+  max-width: 200px;
+}
+
+/* EVIL */
+.evil {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 150px;
+}
+
+/* INVITE */
+#invite {
+  position: fixed;
+  inset: 0;
+  background: pink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invite-box {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* SHAKE */
 @keyframes shake {
   0% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
@@ -172,3 +156,6 @@ h3 {
   100% { transform: translateX(0); }
 }
 
+.hidden {
+  display: none;
+}

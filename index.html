@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capstone Project Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="card" id="loginCard">
+  <h1>Capstone Project Portal</h1>
+  <h3>Secure Access Module</h3>
+
+  <p class="subtitle">
+    Web-Based Information System<br>
+    College of Information and Communications Technology
+  </p>
+
+  <label>Username</label>
+  <input id="username" placeholder="Enter username">
+
+  <label>Password</label>
+  <input id="password" type="password" placeholder="Enter password">
+
+  <button id="loginBtn">Login</button>
+
+  <p id="error"></p>
+
+  <div class="footer">
+    <p>
+      This system is developed as a partial requirement for the course<br>
+      <strong>Capstone Project</strong><br>
+      © 2026 Student Developer
+    </p>
+  </div>
+</div>
+
+<!-- VALENTINE -->
+<div id="valentine">
+  <div class="val-card">
+    <h1>Can you be my Valentine? 💕</h1>
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 🙃</button>
+  </div>
+</div>
+
+<!-- MEME POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <img id="popupImg">
+    <p id="popupText"></p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<!-- INVITATION -->
+<div class="popup" id="invite">
+  <div class="popup-content">
+    <h2>💌 Date Invitation</h2>
+    <p>
+      📅 <strong>February 7</strong><br><br>
+      ⏰ <strong>Time:</strong> 6:00 PM<br>
+      👗 <strong>Attire:</strong> Dress comfortably<br>
+      📍 <strong>Place:</strong> Jiangnan Hotpot (tentative)
+    </p>
+    <h3>❤️</h3>
+  </div>
+</div>
+
+<audio id="evilAudio" loop>
+  <source src="assets/muhehehe.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>

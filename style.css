@@ -6,7 +6,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffe6f0, #fff);
+  background: linear-gradient(135deg, #ffe6f0, #ffffff);
   overflow-x: hidden;
 }
 
@@ -15,10 +15,10 @@ body {
   display: none;
 }
 
-/* LOGIN CARD */
+/* LOGIN */
 .card {
-  width: 320px;
-  margin: 80px auto;
+  width: 300px;
+  margin: 100px auto;
   background: white;
   padding: 20px;
   border-radius: 14px;
@@ -26,37 +26,23 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,.2);
 }
 
-.logo {
-  width: 80px;
-  margin-bottom: 10px;
-}
-
 input {
   width: 100%;
   margin: 8px 0;
   padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
 }
 
 button {
-  margin-top: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
   background: #ff4d88;
   color: white;
   cursor: pointer;
-  font-size: 15px;
 }
 
 button:hover {
   background: #ff1a66;
-}
-
-#error {
-  color: red;
-  font-size: 13px;
 }
 
 /* LOADER */
@@ -85,7 +71,7 @@ button:hover {
 
 /* QUESTION */
 #valentine {
-  margin-top: 100px;
+  margin-top: 120px;
   text-align: center;
 }
 
@@ -115,13 +101,11 @@ button:hover {
   padding: 20px;
   border-radius: 14px;
   text-align: center;
-  width: 260px;
 }
 
 .popup-box video,
 .popup-box img {
   max-width: 200px;
-  margin-bottom: 10px;
 }
 
 /* EVIL */
@@ -140,24 +124,20 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
 
 .invite-box {
   background: white;
-  padding: 25px;
+  padding: 30px;
   border-radius: 18px;
-  max-width: 360px;
   text-align: center;
+  min-width: 260px;
   animation: pulse 1.5s infinite;
 }
 
-.invite-box h1 {
-  margin-top: 0;
-}
-
-.invite-box hr {
-  margin: 15px 0;
+.invite-box p {
+  margin: 8px 0;
+  font-size: 16px;
 }
 
 .ending {
@@ -187,15 +167,6 @@ button:hover {
     transform: translateY(110vh) rotate(360deg);
     opacity: 0;
   }
-}
-
-/* SHAKE */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  50% { transform: translateX(6px); }
-  75% { transform: translateX(-6px); }
-  100% { transform: translateX(0); }
 }
 
 @keyframes pulse {

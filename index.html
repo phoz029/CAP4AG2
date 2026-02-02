@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Capstone Login | Bulacan State University</title>
+  <title>For You</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,38 +11,30 @@
 <!-- LOADER -->
 <div id="loader" class="hidden">
   <div class="spinner"></div>
-  <p>Authenticating…</p>
+  <p>Loading…</p>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN (NOT IMPORTANT) -->
 <div class="card" id="loginCard">
-  <img src="assets/bulsu-logo.jpg" class="logo">
-  <h2>Capstone System Login</h2>
-
-  <input id="username" placeholder="Student ID">
-  <input id="password" type="password" placeholder="Password">
-
-  <label class="remember">
-    <input type="checkbox"> Remember me
-  </label>
-
-  <button id="loginBtn">Sign In</button>
-  <p id="error"></p>
+  <h2>Continue</h2>
+  <input placeholder="Username">
+  <input type="password" placeholder="Password">
+  <button id="loginBtn">Enter</button>
 </div>
 
-<!-- VALENTINE -->
+<!-- QUESTION -->
 <div id="valentine" class="hidden">
-  <h1>Will you go out with me? 💖</h1>
+  <h1>Will you go out with me?</h1>
   <div class="buttons">
-    <button id="yesBtn">Yes 💘</button>
-    <button id="noBtn">No 💔</button>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
   </div>
 </div>
 
 <!-- POPUP -->
 <div id="popup" class="hidden">
   <div class="popup-box">
-    <video id="popupVideo" autoplay muted loop></video>
+    <video id="popupVideo" muted loop></video>
     <img id="popupImg">
     <p id="popupText"></p>
     <button onclick="closePopup()">Close</button>
@@ -52,18 +44,18 @@
 <!-- EVIL VIDEO -->
 <video id="evilVideo" class="evil"></video>
 
-<!-- INVITE -->
+<!-- FINAL LETTER -->
 <div id="invite" class="hidden">
   <div class="invite-box">
-    <h1>💌 Date Invitation 💌</h1>
-    <p><strong>Date:</strong> February 14</p>
-    <p><strong>Time:</strong> 6:00 PM</p>
-    <p><strong>Attire:</strong> Dress comfortably</p>
-    <p><strong>Place:</strong> Jiangnan Hotpot (tentative)</p>
-    <p>See you 💖</p>
+    <p><strong>📅 Date:</strong> February 14</p>
+    <p><strong>⏰ Time:</strong> 6:00 PM</p>
+    <p><strong>📍 Place:</strong> Jiangnan Hotpot (tentative)</p>
+
+    <p class="ending">See you 💖</p>
   </div>
 </div>
 
+<!-- CONFETTI -->
 <div id="confetti"></div>
 
 <script src="script.js"></script>

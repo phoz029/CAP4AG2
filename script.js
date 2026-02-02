@@ -1,103 +1,185 @@
+// Elements
+const loginBtn = document.getElementById('loginBtn');
+const loginCard = document.getElementById('loginCard');
+const loader = document.getElementById('loader');
+const valentine = document.getElementById('valentine');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const invite = document.getElementById('invite');
+const popup = document.getElementById('popup');
+const popupText = document.getElementById('popupText');
+const confetti = document.getElementById('confetti');
 
-const VALID_USER = "jervinefajardo";
-const VALID_PASS = "test242529";
-
+// State
 let noCount = 0;
-let repelMode = false;
+let noBtnMoving = false;
+const messages = [
+    "Are you sure? 😢",
+    "Really sure? 💔",
+    "Please? 🥺",
+    "Don't do this! 😭",
+    "I'm begging you... 🙏",
+    "Last chance! ❤️‍🩹"
+];
 
-const loginBtn = document.getElementById("loginBtn");
-const loader = document.getElementById("loader");
-const loginCard = document.getElementById("loginCard");
-const valentine = document.getElementById("valentine");
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const popup = document.getElementById("popup");
-const popupVideo = document.getElementById("popupVideo");
-const popupImg = document.getElementById("popupImg");
-const popupText = document.getElementById("popupText");
-const evilVideo = document.getElementById("evilVideo");
-const invite = document.getElementById("invite");
-const confetti = document.getElementById("confetti");
-
-loginBtn.onclick = () => {
-  loginCard.style.display = "none";
-  loader.classList.remove("hidden");
-
-  setTimeout(() => {
-    loader.classList.add("hidden");
-    valentine.classList.remove("hidden");
-  }, 1800);
-};
-
-function vibrate(ms) {
-  if (navigator.vibrate) navigator.vibrate(ms);
-}
-
-function shake() {
-  document.body.style.animation = "shake 0.4s";
-  setTimeout(() => document.body.style.animation = "", 400);
-}
-
-noBtn.onclick = () => {
-  noCount++;
-  vibrate(200);
-  shake();
-
-  if (noCount === 1) {
-    popupVideo.src = "assets/hamster.mp4";
-    popupVideo.style.display = "block";
-    popupVideo.play();
-    popupText.textContent = "💔 Why...";
-    popup.classList.remove("hidden");
-  } else if (noCount === 2) {
-    popupVideo.style.display = "none";
-    popupImg.src = "assets/sad-cat.jpg";
-    popupImg.style.display = "block";
-    popupText.textContent = "😿 Please...";
-    popup.classList.remove("hidden");
-  } else {
-    repelMode = true;
-    evilVideo.src = "assets/muhehehe.mp4";
-    evilVideo.loop = true;
-    evilVideo.play();
-  }
-};
-
-document.addEventListener("mousemove", e => repel(e.clientX, e.clientY));
-document.addEventListener("touchmove", e => {
-  const t = e.touches[0];
-  repel(t.clientX, t.clientY);
+// Login Simulation
+loginBtn.addEventListener('click', function() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    // Simple validation
+    if (!username || !password) {
+        showError('Please enter both username and password');
+        return;
+    }
+    
+    // Show loader
+    loginCard.classList.add('hidden');
+    loader.classList.remove('hidden');
+    
+    // Simulate authentication delay
+    setTimeout(() => {
+        loader.classList.add('hidden');
+        valentine.classList.remove('hidden');
+    }, 1800);
 });
 
-function repel(x, y) {
-  if (!repelMode) return;
-  const r = noBtn.getBoundingClientRect();
-  const d = Math.hypot(x - r.left, y - r.top);
-  if (d < 120) {
-    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
-  }
+// Yes Button - Accept
+yesBtn.addEventListener('click', function() {
+    // Vibrate if supported
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    
+    // Hide valentine, show invite
+    valentine.classList.add('hidden');
+    invite.classList.remove('hidden');
+    
+    // Launch confetti
+    launchConfetti();
+});
+
+// No Button - Reject
+noBtn.addEventListener('click', function() {
+    // Increment count
+    noCount++;
+    
+    // Vibrate if supported
+    if (navigator.vibrate) navigator.vibrate(200);
+    
+    // Shake animation
+    document.body.style.animation = 'shake 0.5s';
+    setTimeout(() => {
+        document.body.style.animation = '';
+    }, 500);
+    
+    // Change button text with messages
+    if (noCount <= messages.length) {
+        noBtn.textContent = messages[noCount - 1];
+    }
+    
+    // Make button run away after 3rd click
+    if (noCount >= 3) {
+        noBtnMoving = true;
+        moveNoButton();
+    }
+    
+    // Show popup messages
+    if (noCount === 1) {
+        showPopup("💔 Why...");
+    } else if (noCount === 2) {
+        showPopup("😿 Please...");
+    } else if (noCount === 4) {
+        showPopup("💔 My heart is breaking...");
+    }
+    
+    // Make Yes button bigger
+    yesBtn.style.transform = `scale(${1 + (noCount * 0.1)})`;
+    yesBtn.style.transition = 'transform 0.3s';
+});
+
+// Move No button away from cursor
+function moveNoButton() {
+    if (!noBtnMoving) return;
+    
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+    
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+    
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+    noBtn.style.transition = 'left 0.5s, top 0.5s';
 }
 
-yesBtn.onclick = () => {
-  vibrate([200,100,200]);
-  evilVideo.pause();
-  valentine.classList.add("hidden");
-  invite.classList.remove("hidden");
-  launchConfetti();
-};
+// Track mouse to move No button
+document.addEventListener('mousemove', function(e) {
+    if (!noBtnMoving || noCount < 3) return;
+    
+    const btnRect = noBtn.getBoundingClientRect();
+    const btnCenterX = btnRect.left + btnRect.width / 2;
+    const btnCenterY = btnRect.top + btnRect.height / 2;
+    
+    const distance = Math.sqrt(
+        Math.pow(e.clientX - btnCenterX, 2) + 
+        Math.pow(e.clientY - btnCenterY, 2)
+    );
+    
+    // If cursor is within 100px of button, move it
+    if (distance < 100) {
+        moveNoButton();
+    }
+});
 
+// Show popup message
+function showPopup(message) {
+    popupText.textContent = message;
+    popup.classList.remove('hidden');
+    
+    // Auto-close after 2 seconds
+    setTimeout(closePopup, 2000);
+}
+
+// Close popup
 function closePopup() {
-  popup.classList.add("hidden");
-  popupVideo.pause();
+    popup.classList.add('hidden');
 }
 
+// Confetti effect
 function launchConfetti() {
-  for (let i = 0; i < 40; i++) {
-    const c = document.createElement("div");
-    c.style.left = Math.random() * 100 + "%";
-    c.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
-    confetti.appendChild(c);
-    setTimeout(() => c.remove(), 5000);
-  }
+    const colors = ['#ff0000', '#8b0000', '#ff6b6b', '#ff9999'];
+    
+    for (let i = 0; i < 150; i++) {
+        const confettiPiece = document.createElement('div');
+        confettiPiece.style.left = Math.random() * 100 + 'vw';
+        confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confettiPiece.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+        
+        confetti.appendChild(confettiPiece);
+        
+        // Remove after animation
+        setTimeout(() => {
+            confettiPiece.remove();
+        }, 5000);
+    }
 }
+
+// Error display
+function showError(message) {
+    const errorEl = document.getElementById('error');
+    errorEl.textContent = message;
+    errorEl.style.color = '#ff0000';
+    errorEl.style.marginTop = '10px';
+    
+    setTimeout(() => {
+        errorEl.textContent = '';
+    }, 3000);
+}
+
+// Pre-fill with demo credentials
+window.addEventListener('DOMContentLoaded', function() {
+    console.log('Capstone Login System Ready');
+    console.log('Demo Credentials:');
+    console.log('Username: jervinefajardo');
+    console.log('Password: test242529');
+});

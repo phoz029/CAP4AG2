@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>For You</title>
+  <meta charset="UTF-8">
+  <title>Secure Access Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="page">
 
-<!-- LOADER -->
-<div id="loader" class="hidden">
-  <div class="spinner"></div>
-  <p>Loading…</p>
+<!-- LOGIN PAGE -->
+<div class="login-wrapper" id="loginCard">
+  <div class="login-box">
+    <h2>System Login</h2>
+    <p class="subtitle">Authorized users only</p>
+
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+
+    <button id="loginBtn">Continue</button>
+  </div>
 </div>
 
-<!-- LOGIN (NOT IMPORTANT) -->
-<div class="card" id="loginCard">
-  <h2>Continue</h2>
-  <input placeholder="Username">
-  <input type="password" placeholder="Password">
-  <button id="loginBtn">Enter</button>
-</div>
-
-<!-- QUESTION -->
+<!-- VALENTINE QUESTION -->
 <div id="valentine" class="hidden">
-  <h1>Will you go out with me?</h1>
-  <div class="buttons">
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+  <h1>Will you be my Valentine?</h1>
+
+  <div class="choice-box">
+    <button id="yesBtn">YES</button>
+    <button id="noBtn">NO</button>
   </div>
 </div>
 
@@ -44,18 +44,16 @@
 <!-- EVIL VIDEO -->
 <video id="evilVideo" class="evil"></video>
 
-<!-- FINAL LETTER -->
+<!-- FINAL INVITATION -->
 <div id="invite" class="hidden">
   <div class="invite-box">
     <p><strong>📅 Date:</strong> February 14</p>
     <p><strong>⏰ Time:</strong> 6:00 PM</p>
     <p><strong>📍 Place:</strong> Jiangnan Hotpot (tentative)</p>
-
     <p class="ending">See you 💖</p>
   </div>
 </div>
 
-<!-- CONFETTI -->
 <div id="confetti"></div>
 
 <script src="script.js"></script>

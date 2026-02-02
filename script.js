@@ -21,10 +21,11 @@ const confetti = document.getElementById("confetti");
 /* ================= LOGIN TRANSITION ================= */
 
 loginBtn.onclick = () => {
-  loginCard.classList.add("hidden");
+  loginCard.style.display = "none";
   page.classList.add("valentine-theme");
-  valentine.classList.remove("hidden");
+  valentine.style.display = "block";
 };
+
 
 /* ================= NO BUTTON LOGIC ================= */
 

@@ -1,93 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Capstone Project Portal</title>
+  <meta charset="UTF-8" />
+  <title>Capstone Login | Bulacan State University</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="card" id="loginCard">
-  <img src="bulsu_logo.jpg" alt="Bulacan State University Logo" class="logo">
-
-  <h1>Capstone Project Portal</h1>
-  <h3>Secure Access Module</h3>
-
-  <p class="subtitle">
-    Web-Based Information System<br>
-    College of Information and Communications Technology
-  </p>
-
-  <label>Username</label>
-  <input id="username" placeholder="Enter username">
-
-  <label>Password</label>
-  <input id="password" type="password" placeholder="Enter password">
-
-  <div class="remember-container">
-    <input type="checkbox" id="rememberMe">
-    <label for="rememberMe" class="remember-label">Remember me</label>
-  </div>
-
-  <button id="loginBtn">Login</button>
-  <p id="error"></p>
-
-  <div class="footer">
-    <p>
-      This system is developed as a requirement for the course<br>
-      <strong>Capstone Project</strong><br>
-      © Bulacan State University
-    </p>
-  </div>
-</div>
-
-<!-- LOADING -->
+<!-- LOADER -->
 <div id="loader" class="hidden">
-  <img src="spinner.gif" alt="Loading...">
+  <div class="spinner"></div>
   <p>Authenticating…</p>
 </div>
 
+<!-- LOGIN -->
+<div class="card" id="loginCard">
+  <img src="assets/bulsu-logo.jpg" class="logo">
+  <h2>Capstone System Login</h2>
+
+  <input id="username" placeholder="Student ID">
+  <input id="password" type="password" placeholder="Password">
+
+  <label class="remember">
+    <input type="checkbox"> Remember me
+  </label>
+
+  <button id="loginBtn">Sign In</button>
+  <p id="error"></p>
+</div>
+
 <!-- VALENTINE -->
-<div id="valentine">
-  <div class="val-card">
-    <h1>Can you be my Valentine? 💕</h1>
-    <button id="yesBtn">Yes 💖</button>
-    <button id="noBtn">No 🙃</button>
+<div id="valentine" class="hidden">
+  <h1>Will you go out with me? 💖</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No 💔</button>
   </div>
 </div>
 
-<!-- MEME POPUP -->
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <video id="popupVideo" controls></video>
+<!-- POPUP -->
+<div id="popup" class="hidden">
+  <div class="popup-box">
+    <video id="popupVideo" autoplay muted loop></video>
     <img id="popupImg">
     <p id="popupText"></p>
-    <button onclick="closePopup()">OK</button>
+    <button onclick="closePopup()">Close</button>
   </div>
 </div>
 
-<!-- EVIL VIDEO (repel mode only) -->
-<video id="evilVideo" muted loop></video>
+<!-- EVIL VIDEO -->
+<video id="evilVideo" class="evil"></video>
 
-
-<!-- INVITATION -->
-<div class="popup" id="invite">
-  <div class="popup-content">
-    <h2>💌 Date Invitation</h2>
-    <p>
-      📅 <strong>February 7</strong><br><br>
-      ⏰ <strong>Time:</strong> 6:00 PM<br>
-      👗 <strong>Attire:</strong> Dress Comfortably<br>
-      📍 <strong>Place:</strong> Jiangnan Hotpot & Grill (tentative)
-    </p>
-    <h3>❤️</h3>
+<!-- INVITE -->
+<div id="invite" class="hidden">
+  <div class="invite-box">
+    <h1>💌 Date Invitation 💌</h1>
+    <p><strong>Date:</strong> February 14</p>
+    <p><strong>Time:</strong> 6:00 PM</p>
+    <p><strong>Attire:</strong> Dress comfortably</p>
+    <p><strong>Place:</strong> Jiangnan Hotpot (tentative)</p>
+    <p>See you 💖</p>
   </div>
 </div>
 
-<audio id="evilAudio" loop>
-  <source src="assets/muhehehe.mp3" type="audio/mpeg">
-</audio>
+<div id="confetti"></div>
 
 <script src="script.js"></script>
 </body>

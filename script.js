@@ -1,56 +1,35 @@
-const VALID_USER = "jervinefajardo";
-const VALID_PASS = "test242529";
-
 let noCount = 0;
 let repelMode = false;
 
 const loginBtn = document.getElementById("loginBtn");
-const loader = document.getElementById("loader");
 const loginCard = document.getElementById("loginCard");
 const valentine = document.getElementById("valentine");
-const noBtn = document.getElementById("noBtn");
+const page = document.getElementById("page");
+
 const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
 const popup = document.getElementById("popup");
 const popupVideo = document.getElementById("popupVideo");
 const popupImg = document.getElementById("popupImg");
 const popupText = document.getElementById("popupText");
+
 const evilVideo = document.getElementById("evilVideo");
 const invite = document.getElementById("invite");
 const confetti = document.getElementById("confetti");
-const error = document.getElementById("error");
+
+/* ================= LOGIN TRANSITION ================= */
 
 loginBtn.onclick = () => {
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
-
-  if (user !== VALID_USER || pass !== VALID_PASS) {
-    error.textContent = "Invalid credentials 😢";
-    return;
-  }
-
-  error.textContent = "";
-  loginCard.style.display = "none";
-  loader.classList.remove("hidden");
-
-  setTimeout(() => {
-    loader.classList.add("hidden");
-    valentine.classList.remove("hidden");
-  }, 1500);
+  loginCard.classList.add("hidden");
+  page.classList.add("valentine-theme");
+  valentine.classList.remove("hidden");
 };
 
-function vibrate(ms) {
-  if (navigator.vibrate) navigator.vibrate(ms);
-}
-
-function shake() {
-  document.body.style.animation = "shake 0.4s";
-  setTimeout(() => document.body.style.animation = "", 400);
-}
+/* ================= NO BUTTON LOGIC ================= */
 
 noBtn.onclick = () => {
   noCount++;
-  vibrate(200);
-  shake();
 
   popupVideo.pause();
   popupVideo.style.display = "none";
@@ -60,14 +39,18 @@ noBtn.onclick = () => {
     popupVideo.src = "assets/hamster.mp4";
     popupVideo.style.display = "block";
     popupVideo.play();
-    popupText.textContent = "💔 Why...";
+    popupText.textContent = "";
     popup.classList.remove("hidden");
+
   } else if (noCount === 2) {
     popupImg.src = "assets/sad-cat.jpg";
     popupImg.style.display = "block";
-    popupText.textContent = "😿 Please...";
+    popupText.textContent = "";
     popup.classList.remove("hidden");
+
   } else {
+    popup.classList.add("hidden");
+
     repelMode = true;
     evilVideo.src = "assets/muhehehe.mp4";
     evilVideo.loop = true;
@@ -75,34 +58,50 @@ noBtn.onclick = () => {
   }
 };
 
+/* ================= REPELLING NO ================= */
+
 document.addEventListener("mousemove", e => repel(e.clientX, e.clientY));
+document.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  repel(t.clientX, t.clientY);
+});
 
 function repel(x, y) {
   if (!repelMode) return;
 
   const r = noBtn.getBoundingClientRect();
-  const d = Math.hypot(x - r.left, y - r.top);
+  const dist = Math.hypot(x - r.left, y - r.top);
 
-  if (d < 120) {
+  if (dist < 120) {
     noBtn.style.left =
-      Math.random() * (window.innerWidth - 120) + "px";
+      Math.random() * (window.innerWidth - 140) + "px";
     noBtn.style.top =
-      Math.random() * (window.innerHeight - 60) + "px";
+      Math.random() * (window.innerHeight - 140) + "px";
   }
 }
 
+/* ================= YES BUTTON ================= */
+
 yesBtn.onclick = () => {
-  vibrate([200, 100, 200]);
+  repelMode = false;
+
   evilVideo.pause();
+  evilVideo.style.display = "none";
+
   valentine.classList.add("hidden");
   invite.classList.remove("hidden");
+
   launchConfetti();
 };
+
+/* ================= POPUP CLOSE ================= */
 
 function closePopup() {
   popup.classList.add("hidden");
   popupVideo.pause();
 }
+
+/* ================= CONFETTI ================= */
 
 function launchConfetti() {
   for (let i = 0; i < 40; i++) {

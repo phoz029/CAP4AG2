@@ -1,185 +1,231 @@
-// Elements
-const loginBtn = document.getElementById('loginBtn');
-const loginCard = document.getElementById('loginCard');
-const loader = document.getElementById('loader');
-const valentine = document.getElementById('valentine');
-const yesBtn = document.getElementById('yesBtn');
-const noBtn = document.getElementById('noBtn');
-const invite = document.getElementById('invite');
-const popup = document.getElementById('popup');
-const popupText = document.getElementById('popupText');
-const confetti = document.getElementById('confetti');
-
-// State
-let noCount = 0;
-let noBtnMoving = false;
-const messages = [
-    "Are you sure? 😢",
-    "Really sure? 💔",
-    "Please? 🥺",
-    "Don't do this! 😭",
-    "I'm begging you... 🙏",
-    "Last chance! ❤️‍🩹"
-];
-
-// Login Simulation
-loginBtn.addEventListener('click', function() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+// ================ WORKING VERSION - REPLACE YOUR SCRIPT.JS ================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ Page loaded, setting up events...');
     
-    // Simple validation
-    if (!username || !password) {
-        showError('Please enter both username and password');
-        return;
+    // Get elements
+    const loginBtn = document.getElementById('loginBtn');
+    const loader = document.getElementById('loader');
+    const loginCard = document.getElementById('loginCard');
+    const valentine = document.getElementById('valentine');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const popup = document.getElementById('popup');
+    const popupVideo = document.getElementById('popupVideo');
+    const popupImg = document.getElementById('popupImg');
+    const popupText = document.getElementById('popupText');
+    const evilVideo = document.getElementById('evilVideo');
+    const invite = document.getElementById('invite');
+    const confetti = document.getElementById('confetti');
+    const errorMsg = document.getElementById('error');
+    
+    // Debug: Log what we found
+    console.log('Login button:', loginBtn);
+    console.log('Valentine section:', valentine);
+    console.log('Valentine hidden?', valentine.classList.contains('hidden'));
+    
+    // === 1. LOGIN FUNCTION ===
+    if (loginBtn) {
+        loginBtn.onclick = function() {
+            console.log('🖱️ Login button clicked');
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (!username || !password) {
+                if (errorMsg) {
+                    errorMsg.textContent = 'Please enter both username and password';
+                    errorMsg.style.color = 'red';
+                }
+                return;
+            }
+            
+            console.log(`📝 Login attempt: ${username}`);
+            
+            // Show loader, hide login
+            if (loginCard) loginCard.style.display = 'none';
+            if (loader) loader.classList.remove('hidden');
+            
+            // Simulate 2-second authentication
+            setTimeout(() => {
+                if (loader) loader.classList.add('hidden');
+                if (valentine) {
+                    valentine.classList.remove('hidden');
+                    console.log('💖 Now showing Valentine section');
+                }
+            }, 2000);
+        };
+    } else {
+        console.error('❌ Login button not found!');
     }
     
-    // Show loader
-    loginCard.classList.add('hidden');
-    loader.classList.remove('hidden');
+    // === 2. YES BUTTON ===
+    if (yesBtn) {
+        yesBtn.onclick = function() {
+            console.log('✅ Yes button clicked');
+            
+            // Hide valentine, show invite
+            if (valentine) valentine.classList.add('hidden');
+            if (invite) invite.classList.remove('hidden');
+            
+            // Stop evil video if playing
+            if (evilVideo) {
+                evilVideo.pause();
+                evilVideo.currentTime = 0;
+            }
+            
+            // Launch confetti
+            launchConfetti();
+        };
+    }
     
-    // Simulate authentication delay
+    // === 3. NO BUTTON ===
+    let noCount = 0;
+    const noMessages = [
+        "💔 Why...",
+        "😿 Please...",
+        "💔 My heart is breaking...",
+        "🥺 Don't do this!",
+        "🙏 I'm begging you...",
+        "Stop chasing me! 😠"
+    ];
+    
+    if (noBtn) {
+        noBtn.onclick = function() {
+            noCount++;
+            console.log(`❌ No button clicked (${noCount} times)`);
+            
+            // Update button text
+            if (noCount <= noMessages.length) {
+                noBtn.textContent = noMessages[noCount - 1];
+            }
+            
+            // Show popups for first 2 clicks
+            if (noCount === 1) {
+                showPopup("💔 Why...");
+            } else if (noCount === 2) {
+                showPopup("😿 Please...");
+            }
+            
+            // Make Yes button grow
+            if (yesBtn) {
+                yesBtn.style.transform = `scale(${1 + (noCount * 0.1)})`;
+            }
+            
+            // After 3rd click, activate repel mode
+            if (noCount >= 3) {
+                activateRepelMode();
+            }
+        };
+    }
+    
+    // === 4. POPUP FUNCTIONS ===
+    function showPopup(message) {
+        console.log('📦 Showing popup:', message);
+        if (popupText) popupText.textContent = message;
+        if (popup) popup.classList.remove('hidden');
+        
+        // Auto-close after 2 seconds
+        setTimeout(closePopup, 2000);
+    }
+    
+    function closePopup() {
+        if (popup) popup.classList.add('hidden');
+        if (popupVideo) {
+            popupVideo.pause();
+            popupVideo.currentTime = 0;
+        }
+    }
+    window.closePopup = closePopup; // Make it global for HTML onclick
+    
+    // === 5. REPEL MODE ===
+    let repelMode = false;
+    
+    function activateRepelMode() {
+        repelMode = true;
+        console.log('🌀 Repel mode activated!');
+        
+        if (noBtn) {
+            noBtn.style.position = 'fixed';
+            noBtn.style.zIndex = '1000';
+        }
+        
+        // Move button when mouse gets close
+        document.addEventListener('mousemove', function(e) {
+            if (!repelMode || !noBtn) return;
+            
+            const rect = noBtn.getBoundingClientRect();
+            const btnX = rect.left + rect.width / 2;
+            const btnY = rect.top + rect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - btnX, 2) + 
+                Math.pow(e.clientY - btnY, 2)
+            );
+            
+            if (distance < 150) {
+                const maxX = window.innerWidth - rect.width;
+                const maxY = window.innerHeight - rect.height;
+                
+                noBtn.style.left = Math.random() * maxX + 'px';
+                noBtn.style.top = Math.random() * maxY + 'px';
+            }
+        });
+    }
+    
+    // === 6. CONFETTI ===
+    function launchConfetti() {
+        console.log('🎉 Launching confetti!');
+        if (!confetti) return;
+        
+        const colors = ['#ff0000', '#ff6b6b', '#ff9999', '#ff3333'];
+        
+        for (let i = 0; i < 50; i++) {
+            const piece = document.createElement('div');
+            piece.style.position = 'absolute';
+            piece.style.width = '10px';
+            piece.style.height = '10px';
+            piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.borderRadius = '50%';
+            piece.style.left = Math.random() * 100 + 'vw';
+            piece.style.top = '-10px';
+            piece.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+            
+            confetti.appendChild(piece);
+            
+            setTimeout(() => {
+                if (piece.parentNode === confetti) {
+                    confetti.removeChild(piece);
+                }
+            }, 5000);
+        }
+    }
+    
+    // Add fall animation to CSS if missing
+    if (!document.querySelector('#fall-animation')) {
+        const style = document.createElement('style');
+        style.id = 'fall-animation';
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    console.log('🎯 All event listeners set up successfully!');
+    
+    // Pre-fill for testing (optional)
     setTimeout(() => {
-        loader.classList.add('hidden');
-        valentine.classList.remove('hidden');
-    }, 1800);
-});
-
-// Yes Button - Accept
-yesBtn.addEventListener('click', function() {
-    // Vibrate if supported
-    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-    
-    // Hide valentine, show invite
-    valentine.classList.add('hidden');
-    invite.classList.remove('hidden');
-    
-    // Launch confetti
-    launchConfetti();
-});
-
-// No Button - Reject
-noBtn.addEventListener('click', function() {
-    // Increment count
-    noCount++;
-    
-    // Vibrate if supported
-    if (navigator.vibrate) navigator.vibrate(200);
-    
-    // Shake animation
-    document.body.style.animation = 'shake 0.5s';
-    setTimeout(() => {
-        document.body.style.animation = '';
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        if (usernameInput && passwordInput) {
+            usernameInput.value = 'jervinefajardo';
+            passwordInput.value = 'test242529';
+            console.log('🔑 Pre-filled demo credentials');
+        }
     }, 500);
-    
-    // Change button text with messages
-    if (noCount <= messages.length) {
-        noBtn.textContent = messages[noCount - 1];
-    }
-    
-    // Make button run away after 3rd click
-    if (noCount >= 3) {
-        noBtnMoving = true;
-        moveNoButton();
-    }
-    
-    // Show popup messages
-    if (noCount === 1) {
-        showPopup("💔 Why...");
-    } else if (noCount === 2) {
-        showPopup("😿 Please...");
-    } else if (noCount === 4) {
-        showPopup("💔 My heart is breaking...");
-    }
-    
-    // Make Yes button bigger
-    yesBtn.style.transform = `scale(${1 + (noCount * 0.1)})`;
-    yesBtn.style.transition = 'transform 0.3s';
-});
-
-// Move No button away from cursor
-function moveNoButton() {
-    if (!noBtnMoving) return;
-    
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
-    
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-    
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = randomX + 'px';
-    noBtn.style.top = randomY + 'px';
-    noBtn.style.transition = 'left 0.5s, top 0.5s';
-}
-
-// Track mouse to move No button
-document.addEventListener('mousemove', function(e) {
-    if (!noBtnMoving || noCount < 3) return;
-    
-    const btnRect = noBtn.getBoundingClientRect();
-    const btnCenterX = btnRect.left + btnRect.width / 2;
-    const btnCenterY = btnRect.top + btnRect.height / 2;
-    
-    const distance = Math.sqrt(
-        Math.pow(e.clientX - btnCenterX, 2) + 
-        Math.pow(e.clientY - btnCenterY, 2)
-    );
-    
-    // If cursor is within 100px of button, move it
-    if (distance < 100) {
-        moveNoButton();
-    }
-});
-
-// Show popup message
-function showPopup(message) {
-    popupText.textContent = message;
-    popup.classList.remove('hidden');
-    
-    // Auto-close after 2 seconds
-    setTimeout(closePopup, 2000);
-}
-
-// Close popup
-function closePopup() {
-    popup.classList.add('hidden');
-}
-
-// Confetti effect
-function launchConfetti() {
-    const colors = ['#ff0000', '#8b0000', '#ff6b6b', '#ff9999'];
-    
-    for (let i = 0; i < 150; i++) {
-        const confettiPiece = document.createElement('div');
-        confettiPiece.style.left = Math.random() * 100 + 'vw';
-        confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confettiPiece.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
-        
-        confetti.appendChild(confettiPiece);
-        
-        // Remove after animation
-        setTimeout(() => {
-            confettiPiece.remove();
-        }, 5000);
-    }
-}
-
-// Error display
-function showError(message) {
-    const errorEl = document.getElementById('error');
-    errorEl.textContent = message;
-    errorEl.style.color = '#ff0000';
-    errorEl.style.marginTop = '10px';
-    
-    setTimeout(() => {
-        errorEl.textContent = '';
-    }, 3000);
-}
-
-// Pre-fill with demo credentials
-window.addEventListener('DOMContentLoaded', function() {
-    console.log('Capstone Login System Ready');
-    console.log('Demo Credentials:');
-    console.log('Username: jervinefajardo');
-    console.log('Password: test242529');
 });

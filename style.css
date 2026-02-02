@@ -113,3 +113,40 @@ h3 {
   border-top: 1px solid #ddd;
   padding-top: 10px;
 }
+.logo {
+  display: block;
+  margin: 0 auto 15px;
+  width: 90px;
+}
+
+.remember-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.remember-label {
+  margin-left: 8px;
+  font-size: 13px;
+  color: #555;
+}
+
+#loader {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#loader img {
+  width: 60px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+

@@ -9,6 +9,8 @@
 
 <!-- LOGIN -->
 <div class="card" id="loginCard">
+  <img src="bulsu_logo.png" alt="Bulacan State University Logo" class="logo">
+
   <h1>Capstone Project Portal</h1>
   <h3>Secure Access Module</h3>
 
@@ -23,17 +25,27 @@
   <label>Password</label>
   <input id="password" type="password" placeholder="Enter password">
 
-  <button id="loginBtn">Login</button>
+  <div class="remember-container">
+    <input type="checkbox" id="rememberMe">
+    <label for="rememberMe" class="remember-label">Remember me</label>
+  </div>
 
+  <button id="loginBtn">Login</button>
   <p id="error"></p>
 
   <div class="footer">
     <p>
-      This system is developed as a partial requirement for the course<br>
+      This system is developed as a requirement for the course<br>
       <strong>Capstone Project</strong><br>
-      © 2026 Student Developer
+      © Bulacan State University
     </p>
   </div>
+</div>
+
+<!-- LOADING -->
+<div id="loader" class="hidden">
+  <img src="spinner.gif" alt="Loading...">
+  <p>Authenticating…</p>
 </div>
 
 <!-- VALENTINE -->
